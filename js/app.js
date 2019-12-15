@@ -124,7 +124,75 @@ function createFoot() {
 }
 createFoot();
 
+document.getElementById('myBut').addEventListener('click', myFunction);
 
+function myFunction() {
+
+  function checkValues() {
+    var s = '';
+    if (document.getElementById('location').value.length < 1) {
+      s += 'Please enter a location \n';
+    }
+    if (document.getElementById('minCust').value.length < 1) {
+      s += 'Please enter minimun number of customers \n';
+    }
+    if (document.getElementById('maxCust').value.length < 1) {
+      s += 'Please enter maximum number of customers \n';
+    }
+    if (document.getElementById('avgCust').value.length < 1) {
+      s += 'Please enter average purchase per customer \n';
+    }
+
+    if (s !== '') {
+      alert(s);
+      return false;
+    }
+    else {
+      return true;
+    }
+
+  }
+  function updateTable() {
+
+    document.getElementById('cookieSales').remove();
+    var t = document.createElement('tbody');
+    t.setAttribute('id', 'cookieSales');
+
+    document.getElementById('cookieTable').appendChild(t);
+
+    createTable();
+
+    document.getElementById('foot').remove();
+    t = document.createElement('tfoot');
+    t.setAttribute('id', 'foot');
+
+    document.getElementById('cookieTable').appendChild(t);
+
+    createFoot();
+  }
+
+  if (checkValues()){
+
+    var place = new NewPlace(document.getElementById('location').value, parseInt(document.getElementById('minCust').value), parseInt(document.getElementById('maxCust').value), parseFloat(document.getElementById('avgCust').value));
+    cookieArray.push(place);
+
+
+    var l = cookieArray.length - 1;
+    for (i = 0; i < shopHour; i++) {
+      var n = randomNum(cookieArray[l].minCust, cookieArray[l].maxCust) * cookieArray[l].avgCookieSale;
+      cookieArray[l].cookiesPerHour.push(n);
+      cookieArray[l].totalCookies += n;
+      totalCookiesSold[i] += n;
+    }
+
+    updateTable();
+
+    document.getElementById('location').value = null;
+    document.getElementById('minCust').value = null;
+    document.getElementById('maxCust').value = null;
+    document.getElementById('avgCust').value = null;
+  }
+}
 
 
 
