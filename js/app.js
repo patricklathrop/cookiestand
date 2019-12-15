@@ -6,10 +6,15 @@ var cookieArray = [];
 var shopHour = 14;
 var totalCookiesSold = [];
 
+/** number randomizer */
+function randomNum(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+/** zero out total cookies sold per hour row*/
 for (var i=0; i < shopHour; i++){
   totalCookiesSold.push(0);
 }
-
 
 /**
  * this function is used to bundle parameters passed to it, as well as adding an empty array called 'cookiesPerHour' that will store the number of 'cookies per hour', and returning an object.
@@ -54,15 +59,72 @@ function calcSales (){
     }
   }
 }
-calcSales;
+calcSales();
+
+/** create tables function */
+function createTable (){
+  var table = document.getElementById('cookieSales');
+
+  for (i=0; i < cookieArray.length; i++){
+    var row=document.createElement('tr');
+
+    var col = document.createElement('td');
+    var x = document.createTextNode(cookieArray[i].location);
+    col.appendChild(x);
+    row.appendChild(col);
+
+    for (var j = 0; j < shopHour; j++) {
+      var amount = parseInt(cookieArray[i].cookiesPerHour[j]);
+      col = document.createElement('td');
+      x = document.createTextNode(amount);
+      col.appendChild(x);
+      row.appendChild(col);
+    }
+
+    col = document.createElement('td');
+    x = document.createTextNode(parseInt(cookieArray[i].totalCookies));
+    col.appendChild(x);
+    row.appendChild(col);
+
+    table.appendChild(row);
+  }
+}
+createTable();
 
 
+/** Create footer  */
+function createFoot() {
+  var foot = document.getElementById('foot');
+
+  var row = document.createElement('tr');
+
+  var col = document.createElement('td');
+  var x = document.createTextNode('Total');
+  col.appendChild(x);
+  row.appendChild(col);
+
+  var total_amount = 0;
+  for (i = 0; i < shopHour; i++) {
+    var amount = parseInt(totalCookiesSold[i]);
+    col = document.createElement('td');
+    x = document.createTextNode(amount);
+    col.appendChild(x);
+    row.appendChild(col);
+    total_amount += amount;
+  }
+
+  col = document.createElement('td');
+  x = document.createTextNode(total_amount);
+  col.appendChild(x);
+  row.appendChild(col);
 
 
-/** number randomizer */
-function randomNum(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+  foot.appendChild(row);
 
 }
+createFoot();
+
+
+
 
 
