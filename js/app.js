@@ -133,13 +133,13 @@ function myFunction() {
     if (document.getElementById('location').value.length < 1) {
       s += 'Please enter a location \n';
     }
-    if (document.getElementById('minCust').value.length < 1) {
+    if (isNaN(parseInt(document.getElementById('minCust').value))) {
       s += 'Please enter minimun number of customers \n';
     }
-    if (document.getElementById('maxCust').value.length < 1) {
+    if (isNaN(parseInt(document.getElementById('maxCust').value))) {
       s += 'Please enter maximum number of customers \n';
     }
-    if (document.getElementById('avgCust').value.length < 1) {
+    if (isNaN(parseInt(document.getElementById('avgCust').value))) {
       s += 'Please enter average purchase per customer \n';
     }
 
